@@ -1,0 +1,20 @@
+.divModal{
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.divModal div {
+    width: 200px;
+    height: 200px;
+    background-color: white;
+}
+.modalBody{
+    color: black;
+}

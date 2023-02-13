@@ -1,0 +1,68 @@
+//!# index.html
+<html>
+    
+    <head>Teste de modal
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+	    <button id="modal">
+		    <span>Abrir Modal</span>
+	    </button>
+	    <script>
+		    //!# class modal
+			class Modal {
+    constructor(titulo,descricao){
+        this.titulo=titulo;
+        this.descricao=descricao}
+   
+    
+     createModal(titulo,descricao){
+    const divModal = document.createElement("div");
+    divModal.classList.add("divModal")
+    const h1Modal = document.createElement("h1");
+    h1Modal.innerText=`${titulo}`
+   
+    
+    const body = document.querySelector("body");
+    body.appendChild(divModal)
+
+    const modalBody = document.createElement("div");
+    const self=this
+    modalBody.classList.add(".modalBody")
+    const btnClose = document.createElement("button")
+        btnClose.innerText="X"
+        btnClose.classList.add("btnTrash")
+        btnClose.addEventListener("click",()=>{
+            
+            self.closeModal(divModal)
+        })
+        modalBody.appendChild(btnClose)
+    divModal.appendChild(modalBody)
+
+}
+closeModal(modal){
+        
+        
+        modal.remove()
+    }
+
+}
+
+
+
+const btnOpenModal = document.querySelector("#modal");
+btnOpenModal.addEventListener("click",()=>{
+    const app = new Modal("Ola","teste");
+    app.createModal()
+    app.closeModal()
+    
+})
+
+
+		</script>
+    </body>
+</html>
