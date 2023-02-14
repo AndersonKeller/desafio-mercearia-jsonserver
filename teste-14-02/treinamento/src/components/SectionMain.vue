@@ -1,8 +1,20 @@
 <script setup>
+import {
+    calculoUnidadesVendidas,
+    vendaMarco,
+    custoVariavelPorUnidade,
+    custoTotalUnidade,
+    lucroLiquido,
+} from "../controllers/datas";
 function getName() {
     const name = localStorage.getItem("name");
     return name;
 }
+const name = getName();
+const unidades = calculoUnidadesVendidas();
+const custoVariavelUnidade = custoVariavelPorUnidade();
+const despesaTotalUnidade = custoTotalUnidade();
+const liquido = lucroLiquido();
 </script>
 <template>
     <section class="section-main">
@@ -13,21 +25,36 @@ function getName() {
             <p>Painel de controle</p>
         </div>
         <div
-            class="section-body p-2 d-flex align-items-center justify-content-between w-100"
+            class="section-body p-3 d-flex align-items-center justify-content-between w-100"
         >
-            <h4>{{ getName() }}</h4>
+            <h4>{{ name }}</h4>
             <select name="mes" id="mes">
                 <option value="março">Março</option>
             </select>
         </div>
-        <div class="section-content d-flex justify-content-evenly w-100">
+        <div
+            v-if="name == 'Dashboard'"
+            class="section-content d-flex flex-wrap justify-content-evenly w-100"
+        >
             <div class="card p-3 mb-3">
-                <p>Lucro Bruto</p>
-                <h3><span class="fs-6">R$</span>1789,00</h3>
+                <p>Lucro Líquido</p>
+                <h3><span class="fs-6">R$</span>{{ liquido }}</h3>
             </div>
             <div class="card p-3 mb-3">
-                <p>Lucro Bruto</p>
-                <h3><span class="fs-6">R$</span>1789,00</h3>
+                <p>Unidades vendidas</p>
+                <h3>{{ unidades }}</h3>
+            </div>
+            <div class="card p-3 mb-3">
+                <p>Total de vendas</p>
+                <h3><span class="fs-6">R$</span>{{ vendaMarco }}</h3>
+            </div>
+            <div class="card p-3 mb-3">
+                <p>Custo variavel por unidade</p>
+                <h3><span class="fs-6">R$</span>{{ custoVariavelUnidade }}</h3>
+            </div>
+            <div class="card p-3 mb-3">
+                <p>Custo total por unidade</p>
+                <h3><span class="fs-6">R$</span>{{ despesaTotalUnidade }}</h3>
             </div>
         </div>
     </section>
