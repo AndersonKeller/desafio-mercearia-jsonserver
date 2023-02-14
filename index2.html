@@ -24,15 +24,17 @@
     const divModal = document.createElement("div");
     divModal.classList.add("divModal")
     const h1Modal = document.createElement("h1");
-    h1Modal.innerText=`${titulo}`
+    h1Modal.innerText=`${this.titulo}`
    
-    
+    const h2Modal = document.createElement("h2");
+    h2Modal.innerText= `${this.descricao}`
     const body = document.querySelector("body");
     body.appendChild(divModal)
 
     const modalBody = document.createElement("div");
+    modalBody.append(h1Modal,h2Modal)
     const self=this
-    modalBody.classList.add(".modalBody")
+    modalBody.classList.add("modalBody")
     const btnClose = document.createElement("button")
         btnClose.innerText="X"
         btnClose.classList.add("btnTrash")
