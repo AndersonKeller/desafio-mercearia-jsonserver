@@ -10,3 +10,19 @@ export const useCounterStore = defineStore("counter", () => {
 
     return { count, doubleCount, increment };
 });
+export const useNameStore = defineStore("name", (name) => {
+    const nameAtual = ref("");
+    function atualizaName() {
+        nameAtual.value = name;
+    }
+    return { atualizaName, nameAtual, name };
+});
+/*export function nameDash(name) {
+    const thisName = ref("");
+    console.log(thisName.value);
+    function setName() {
+        thisName.value = name;
+    }
+
+    return { thisName, setName };
+}*/

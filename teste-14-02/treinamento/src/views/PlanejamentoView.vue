@@ -1,7 +1,8 @@
 <script setup>
 import HeaderMain from "../components/HeaderMain.vue";
+import SectionMain from "../components/SectionMain.vue";
 </script>
 <template>
     <HeaderMain></HeaderMain>
-    <h1>Planejamento</h1>
+    <SectionMain></SectionMain>
 </template>
