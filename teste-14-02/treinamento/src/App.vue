@@ -9,9 +9,15 @@ import { RouterView } from "vue-router";
 <style>
 #app {
     display: flex;
-    width: 100vw;
+    justify-content: center;
+    min-width: 100vw;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+@media (min-width: 1024px) {
+    #app {
+        display: flex !important;
+    }
 }
 </style>
