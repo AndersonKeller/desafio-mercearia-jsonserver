@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { calculoDespesasFixas } from "../controllers/datas";
 
 export const useCounterStore = defineStore("counter", () => {
     const count = ref(0);
@@ -10,19 +11,11 @@ export const useCounterStore = defineStore("counter", () => {
 
     return { count, doubleCount, increment };
 });
-export const useNameStore = defineStore("name", (name) => {
-    const nameAtual = ref("");
-    function atualizaName() {
-        nameAtual.value = name;
+const res = calculoDespesasFixas();
+export const useFixaStore = defineStore("fixas", () => {
+    const fixas = ref(res);
+    function atualizaFixas(value) {
+        fixas.value = Number(value);
     }
-    return { atualizaName, nameAtual, name };
+    return { fixas, atualizaFixas };
 });
-/*export function nameDash(name) {
-    const thisName = ref("");
-    console.log(thisName.value);
-    function setName() {
-        thisName.value = name;
-    }
-
-    return { thisName, setName };
-}*/

@@ -1,11 +1,12 @@
 <script setup>
+import { useFixaStore } from "../stores/counter";
+
 import {
     calculoUnidadesVendidas,
     vendaMarco,
     custoVariavelPorUnidade,
     custoTotalUnidade,
     lucroLiquido,
-    calculoDespesasFixas,
 } from "../controllers/datas";
 import DespesasForm from "./DespesasForm.vue";
 function getName() {
@@ -17,7 +18,7 @@ const unidades = calculoUnidadesVendidas();
 const custoVariavelUnidade = custoVariavelPorUnidade();
 const despesaTotalUnidade = custoTotalUnidade();
 const liquido = lucroLiquido();
-const despesasFixas = calculoDespesasFixas();
+const despesasFixas = useFixaStore();
 </script>
 <template>
     <section class="section-main">
@@ -66,7 +67,7 @@ const despesasFixas = calculoDespesasFixas();
         >
             <div class="card p-3 mb-3">
                 <p>Total de despesas fixas</p>
-                <h3><span class="fs-6">R$</span>{{ despesasFixas }}</h3>
+                <h3><span class="fs-6">R$</span>{{ despesasFixas.fixas }}</h3>
             </div>
             <DespesasForm></DespesasForm>
         </div>

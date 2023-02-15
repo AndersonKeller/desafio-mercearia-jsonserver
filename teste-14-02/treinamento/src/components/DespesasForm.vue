@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import { useFixaStore } from "../stores/counter";
 import { fixasDes } from "../controllers/datas";
+const fixasState = useFixaStore();
 const selectType = ref("");
 const selectVariavel = ref("");
 const selectFixa = ref("");
@@ -11,6 +13,16 @@ function getValuesForm() {
     newDespesa[
         selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
     ] = inputValue.value;
+    console.log(newDespesa);
+    fixasDes[
+        selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
+    ] += inputValue.value;
+    console.log(fixasDes);
+    const fixasTotal = Object.values(fixasDes);
+    const reduceFixa = fixasTotal.reduce((acumulador, atual) => {
+        return acumulador + atual;
+    }, 0);
+    fixasState.atualizaFixas(reduceFixa);
     return newDespesa;
 }
 </script>
@@ -19,6 +31,7 @@ function getValuesForm() {
         <p>Inserir nova despesa</p>
         <div class="input-group mb-3 w-100 d-flex flex-column">
             <select id="tipo" class="form-select w-100" v-model="selectType">
+                <option value="">Escolha o tipo</option>
                 <option value="fixa" selected>Fixa</option>
                 <option value="variavel">Variavel</option>
             </select>
