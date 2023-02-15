@@ -5,7 +5,9 @@ import {
     custoVariavelPorUnidade,
     custoTotalUnidade,
     lucroLiquido,
+    calculoDespesasFixas,
 } from "../controllers/datas";
+import DespesasForm from "./DespesasForm.vue";
 function getName() {
     const name = localStorage.getItem("name");
     return name;
@@ -15,6 +17,7 @@ const unidades = calculoUnidadesVendidas();
 const custoVariavelUnidade = custoVariavelPorUnidade();
 const despesaTotalUnidade = custoTotalUnidade();
 const liquido = lucroLiquido();
+const despesasFixas = calculoDespesasFixas();
 </script>
 <template>
     <section class="section-main">
@@ -28,7 +31,7 @@ const liquido = lucroLiquido();
             class="section-body p-3 d-flex align-items-center justify-content-between w-100"
         >
             <h4>{{ name }}</h4>
-            <select name="mes" id="mes">
+            <select v-if="name == 'Dashboard'" name="mes" id="mes">
                 <option value="março">Março</option>
             </select>
         </div>
@@ -57,6 +60,16 @@ const liquido = lucroLiquido();
                 <h3><span class="fs-6">R$</span>{{ despesaTotalUnidade }}</h3>
             </div>
         </div>
+        <div
+            v-if="name == 'Despesas'"
+            class="section-content d-flex flex-wrap justify-content-evenly w-100"
+        >
+            <div class="card p-3 mb-3">
+                <p>Total de despesas fixas</p>
+                <h3><span class="fs-6">R$</span>{{ despesasFixas }}</h3>
+            </div>
+            <DespesasForm></DespesasForm>
+        </div>
     </section>
 </template>
 <style>
@@ -80,5 +93,6 @@ const liquido = lucroLiquido();
 }
 .card {
     width: 45%;
+    height: max-content;
 }
 </style>

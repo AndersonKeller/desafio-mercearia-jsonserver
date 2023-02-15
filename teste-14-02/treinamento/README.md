@@ -43,6 +43,15 @@ Sua operação (despesas fixas) vai ficar quanto ao mês?
         - exibir em um card as infos desse produto.
  Tempo estimado 2 horas
 
+ 6 - tela e campo de cadastro e login do usuário
+        - form para cadastro de um usuário
+        - page de login para o usuário e suas informações
+ tempo estimado 2 horas
+
+7 - pagina de vendas, onde inclui a quantidade de vendas do mês para retornar os cálculos
+        - input onde inseri a quantidade vendida por dia (assim retornando os calculos na adashboard)
+ tempo estimado 2 horas
+
 # treinamento
 
 This template should help get you started developing with Vue 3 in Vite.

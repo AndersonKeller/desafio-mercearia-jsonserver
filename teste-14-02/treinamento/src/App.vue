@@ -19,6 +19,9 @@ body {
     min-height: max-content !important;
     background-color: #dee2e6 !important;
 }
+button {
+    cursor: pointer;
+}
 @media (min-width: 1024px) {
     #app {
         display: flex !important;

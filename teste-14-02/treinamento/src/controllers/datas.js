@@ -1,10 +1,10 @@
-const marcoVariaveis = {
+export const marcoVariaveis = {
     mantimentos: 4356,
     energia: 2879,
     agua: 150,
     gasolina: 659.54,
 };
-const fixasDes = {
+export const fixasDes = {
     internet: 99,
     funcionario: 2500,
     contabilidade: 600,
