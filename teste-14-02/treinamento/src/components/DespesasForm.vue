@@ -13,18 +13,17 @@ const inputValue = ref(0);
 function getValuesForm() {
     let newDespesa = {};
     newDespesa["tipo"] = selectType.value;
+    console.log(newDespesa);
     newDespesa[
         selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
     ] = inputValue.value;
-    if (selectType.value == "fixa") {
-        fixasDes[
-            selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
-        ] += inputValue.value;
+    if (newDespesa.tipo == "fixa") {
+        fixasDes[selectFixa.value] += inputValue.value;
     }
-    if (selectType.value == "variavel") {
-        marcoVariaveis[
-            selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
-        ] += inputValue.value;
+    if (newDespesa.tipo == "variavel") {
+        console.log(selectVariavel.value);
+        console.log(inputValue.value);
+        marcoVariaveis[selectVariavel.value] += inputValue.value;
     }
     const fixasTotal = Object.values(fixasDes);
     const reduceFixa = fixasTotal.reduce((acumulador, atual) => {
@@ -34,15 +33,14 @@ function getValuesForm() {
     const reduceVariaveis = variavelTotal.reduce((acumulador, atual) => {
         return acumulador + atual;
     }, 0);
+
     if (selectType.value == "fixa") {
         fixasState.atualizaFixas(reduceFixa);
     }
     if (selectType.value == "variavel") {
         variavelState.atualizaVariavel(reduceVariaveis);
     }
-    console.log(reduceVariaveis);
-    console.log(selectType.value);
-    console.log(newDespesa);
+    console.log(fixasDes);
     return newDespesa;
 }
 </script>

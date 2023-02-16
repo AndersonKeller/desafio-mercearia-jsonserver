@@ -22,24 +22,13 @@ export const useFixaStore = defineStore("fixas", () => {
     function atualizaFixas(value) {
         fixas.value = Number(value);
     }
-    function normalizaMoney(value) {
-        const newValue = new Intl.NumberFormat("pt-BR", {
-            maximumSignificantDigits: 3,
-        }).format(value);
-        return newValue;
-    }
-    return { fixas, atualizaFixas, normalizaMoney };
+    return { fixas, atualizaFixas };
 });
 export const useVariavelStore = defineStore("variaveis", () => {
     const variaveis = ref(resVariaveis);
     function atualizaVariavel(value) {
+        console.log(value);
         variaveis.value = Number(value);
     }
-    function normalizaMoney(value) {
-        const newValue = new Intl.NumberFormat("pt-BR", {
-            maximumSignificantDigits: 3,
-        }).format(value);
-        return newValue;
-    }
-    return { variaveis, atualizaVariavel, normalizaMoney };
+    return { variaveis, atualizaVariavel };
 });

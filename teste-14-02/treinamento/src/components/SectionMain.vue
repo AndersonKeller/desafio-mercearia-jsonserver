@@ -21,7 +21,15 @@ const liquido = lucroLiquido();
 const despesasFixas = useFixaStore();
 const despesasVariaveis = useVariavelStore();
 const valueFixas = despesasFixas.fixas;
+const valueFixasBRL = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+}).format(valueFixas);
 const valueVariavel = despesasVariaveis.variaveis;
+const valueVariavelBRL = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+}).format(valueVariavel);
 </script>
 <template>
     <section class="section-main">
@@ -71,14 +79,11 @@ const valueVariavel = despesasVariaveis.variaveis;
             <div>
                 <div class="card p-3 mb-3 w-100">
                     <p>Total de despesas fixas</p>
-                    <h3><span class="fs-6">R$</span>{{ valueFixas }}</h3>
+                    <h3>{{ valueFixasBRL }}</h3>
                 </div>
                 <div class="card p-3 mb-3 w-100">
                     <p>Total de despesas variaveis</p>
-                    <h3>
-                        <span class="fs-6">R$</span
-                        >{{ despesasVariaveis.normalizaMoney(valueVariavel) }}
-                    </h3>
+                    <h3>{{ valueVariavelBRL }}</h3>
                 </div>
             </div>
             <DespesasForm></DespesasForm>

@@ -23,7 +23,7 @@ export default { setName };
                     >Planejamento</a
                 >
                 <a href="/produtos" @click="setName('Produtos')">Produtos</a>
-                <a href="/login">Login</a>
+                <a href="/login" @click="setName('Login')">Login</a>
             </nav>
         </div>
     </header>
