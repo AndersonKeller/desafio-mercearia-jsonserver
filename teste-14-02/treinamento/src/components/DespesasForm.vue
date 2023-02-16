@@ -1,28 +1,48 @@
 <script setup>
 import { ref } from "vue";
-import { useFixaStore } from "../stores/counter";
-import { fixasDes } from "../controllers/datas";
+import { useFixaStore, useVariavelStore } from "../stores/counter";
+import { fixasDes, marcoVariaveis } from "../controllers/datas";
 const fixasState = useFixaStore();
+const variavelState = useVariavelStore();
 const selectType = ref("");
 const selectVariavel = ref("");
 const selectFixa = ref("");
 const inputValue = ref(0);
+
+// PEGA OS VALORES DO FORM E ATUALIZA O OBJETO E O STATE COM TOTAL DE DESPESAS
 function getValuesForm() {
     let newDespesa = {};
     newDespesa["tipo"] = selectType.value;
     newDespesa[
         selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
     ] = inputValue.value;
-    console.log(newDespesa);
-    fixasDes[
-        selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
-    ] += inputValue.value;
-    console.log(fixasDes);
+    if (selectType.value == "fixa") {
+        fixasDes[
+            selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
+        ] += inputValue.value;
+    }
+    if (selectType.value == "variavel") {
+        marcoVariaveis[
+            selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
+        ] += inputValue.value;
+    }
     const fixasTotal = Object.values(fixasDes);
     const reduceFixa = fixasTotal.reduce((acumulador, atual) => {
         return acumulador + atual;
     }, 0);
-    fixasState.atualizaFixas(reduceFixa);
+    const variavelTotal = Object.values(marcoVariaveis);
+    const reduceVariaveis = variavelTotal.reduce((acumulador, atual) => {
+        return acumulador + atual;
+    }, 0);
+    if (selectType.value == "fixa") {
+        fixasState.atualizaFixas(reduceFixa);
+    }
+    if (selectType.value == "variavel") {
+        variavelState.atualizaVariavel(reduceVariaveis);
+    }
+    console.log(reduceVariaveis);
+    console.log(selectType.value);
+    console.log(newDespesa);
     return newDespesa;
 }
 </script>

@@ -1,5 +1,5 @@
 <script setup>
-import { useFixaStore } from "../stores/counter";
+import { useFixaStore, useVariavelStore } from "../stores/counter";
 
 import {
     calculoUnidadesVendidas,
@@ -19,6 +19,9 @@ const custoVariavelUnidade = custoVariavelPorUnidade();
 const despesaTotalUnidade = custoTotalUnidade();
 const liquido = lucroLiquido();
 const despesasFixas = useFixaStore();
+const despesasVariaveis = useVariavelStore();
+const valueFixas = despesasFixas.fixas;
+const valueVariavel = despesasVariaveis.variaveis;
 </script>
 <template>
     <section class="section-main">
@@ -65,9 +68,18 @@ const despesasFixas = useFixaStore();
             v-if="name == 'Despesas'"
             class="section-content d-flex flex-wrap justify-content-evenly w-100"
         >
-            <div class="card p-3 mb-3">
-                <p>Total de despesas fixas</p>
-                <h3><span class="fs-6">R$</span>{{ despesasFixas.fixas }}</h3>
+            <div>
+                <div class="card p-3 mb-3 w-100">
+                    <p>Total de despesas fixas</p>
+                    <h3><span class="fs-6">R$</span>{{ valueFixas }}</h3>
+                </div>
+                <div class="card p-3 mb-3 w-100">
+                    <p>Total de despesas variaveis</p>
+                    <h3>
+                        <span class="fs-6">R$</span
+                        >{{ despesasVariaveis.normalizaMoney(valueVariavel) }}
+                    </h3>
+                </div>
             </div>
             <DespesasForm></DespesasForm>
         </div>
