@@ -13,6 +13,7 @@
     "bootstrap": "^5.2.3",
     "mdi": "^2.2.43",
     "pinia": "^2.0.28",
+    "use-indexeddb": "^2.0.2",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },

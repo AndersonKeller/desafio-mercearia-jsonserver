@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import { defineStore } from "pinia";
-
 function handleSubmit() {
     const setUser = useUserStore();
     setUser.atualizaUser({
@@ -38,14 +37,18 @@ const passwordInput = ref("");
             />
             <span class="input-group-text" id="basic-addon2">Senha</span>
             <input
-                type="text"
+                type="password"
                 class="form-control w-100"
                 placeholder="Digite sua senha"
                 aria-label="Password"
                 aria-describedby="basic-addon2"
                 v-model="passwordInput"
             />
-            <button type="submit" class="btn btn-primary btn-lg mt-1">
+            <button
+                :disabled="passwordInput == '' || userInput == ''"
+                type="submit"
+                class="btn btn-primary btn-lg mt-1"
+            >
                 Logar
             </button>
         </div>
