@@ -1,6 +1,6 @@
 <script setup>
 import { useFixaStore, useVariavelStore } from "../stores/counter";
-
+import { getDespesas } from "../database/connection";
 import {
     calculoUnidadesVendidas,
     vendaMarco,
@@ -30,6 +30,7 @@ const valueVariavelBRL = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
 }).format(valueVariavel);
+getDespesas();
 </script>
 <template>
     <section class="section-main">

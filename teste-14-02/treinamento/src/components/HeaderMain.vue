@@ -3,7 +3,7 @@ import { Icon } from "@iconify/vue";
 // eslint-disable-next-line vue/no-export-in-script-setup
 </script>
 <script>
-function setName(name) {
+export function setName(name) {
     localStorage.setItem("name", name);
 }
 export default { setName };

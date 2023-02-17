@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useFixaStore, useVariavelStore } from "../stores/counter";
 import { fixasDes, marcoVariaveis } from "../controllers/datas";
+import { postNewDespesa } from "../database/connection";
 const fixasState = useFixaStore();
 const variavelState = useVariavelStore();
 const selectType = ref("");
@@ -10,10 +11,9 @@ const selectFixa = ref("");
 const inputValue = ref(0);
 
 // PEGA OS VALORES DO FORM E ATUALIZA O OBJETO E O STATE COM TOTAL DE DESPESAS
-function getValuesForm() {
+async function getValuesForm() {
     let newDespesa = {};
     newDespesa["tipo"] = selectType.value;
-    console.log(newDespesa);
     newDespesa[
         selectType.value == "fixa" ? selectFixa.value : selectVariavel.value
     ] = inputValue.value;
@@ -21,8 +21,6 @@ function getValuesForm() {
         fixasDes[selectFixa.value] += inputValue.value;
     }
     if (newDespesa.tipo == "variavel") {
-        console.log(selectVariavel.value);
-        console.log(inputValue.value);
         marcoVariaveis[selectVariavel.value] += inputValue.value;
     }
     const fixasTotal = Object.values(fixasDes);
@@ -40,7 +38,8 @@ function getValuesForm() {
     if (selectType.value == "variavel") {
         variavelState.atualizaVariavel(reduceVariaveis);
     }
-    console.log(fixasDes);
+    const res = postNewDespesa(newDespesa);
+   console.log(res);
     return newDespesa;
 }
 </script>

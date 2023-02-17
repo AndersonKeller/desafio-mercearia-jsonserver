@@ -1,18 +1,34 @@
 <script setup>
 import { ref } from "vue";
 import { defineStore } from "pinia";
-function handleSubmit() {
+import { loginDb } from "../database/connection";
+import { setName } from "../components/HeaderMain.vue";
+import { useRouter } from "vue-router";
+const route = useRouter();
+async function handleSubmit() {
     const setUser = useUserStore();
     setUser.atualizaUser({
         user: userInput.value,
         password: passwordInput.value,
     });
     console.log(setUser.user);
+    const data = { email: userInput.value, password: passwordInput.value };
+    try {
+        const res = await loginDb(data);
+        console.log(res);
+        localStorage.setItem("@merceariaToken", res.data.accessToken);
+        setName("Dashboard");
+        setTimeout(() => {
+            route.push({ name: "home" });
+        }, 1000);
+    } catch (error) {
+        console.log(error.response.data);
+    }
 }
+//email: "email@email.com", password: "12345"
 const useUserStore = defineStore("user", () => {
     const user = ref("");
     function atualizaUser(value) {
-        console.log(value);
         user.value = value;
     }
     return { user, atualizaUser };
