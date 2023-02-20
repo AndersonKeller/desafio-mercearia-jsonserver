@@ -1,5 +1,4 @@
 import axios from "axios";
-
 export const db = axios.create({
     baseURL: "http://localhost:3001",
     timeout: 6000,
@@ -23,6 +22,7 @@ export async function registerDb() {
 export async function loginDb(data) {
     //const data = { email: "email@email.com", password: "12345" };
     const res = await db.post("/login", data);
+    console.log(res);
     return res;
 }
 export async function getDespesas() {

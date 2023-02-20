@@ -10,7 +10,7 @@ export default { setName };
 </script>
 <template>
     <header
-        class="position-fixed top-0 start-0 w-100 d-flex align-center justify-content-center"
+        class="position-absolute top-0 start-0 w-100 d-flex align-center justify-content-center"
     >
         <div class="d-flex align-center w-75 m-auto">
             <Icon icon="mdi:cake" color="red" width="60px" />

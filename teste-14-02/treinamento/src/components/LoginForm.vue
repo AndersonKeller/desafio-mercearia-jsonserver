@@ -5,13 +5,18 @@ import { loginDb } from "../database/connection";
 import { setName } from "../components/HeaderMain.vue";
 import { useRouter } from "vue-router";
 const route = useRouter();
+const errorLogin = ref("");
+function atualizaError(value) {
+    errorLogin.value = value;
+    return errorLogin;
+}
+
 async function handleSubmit() {
     const setUser = useUserStore();
     setUser.atualizaUser({
         user: userInput.value,
         password: passwordInput.value,
     });
-    console.log(setUser.user);
     const data = { email: userInput.value, password: passwordInput.value };
     try {
         const res = await loginDb(data);
@@ -21,10 +26,12 @@ async function handleSubmit() {
         setTimeout(() => {
             route.push({ name: "home" });
         }, 1000);
-    } catch (error) {
-        console.log(error.response.data);
+    } catch (errorCatch) {
+        console.log(errorCatch.response.data);
+        atualizaError("Email ou senha incorretos");
     }
 }
+console.log(errorLogin.value);
 //email: "email@email.com", password: "12345"
 const useUserStore = defineStore("user", () => {
     const user = ref("");
@@ -44,7 +51,7 @@ const passwordInput = ref("");
         <div class="input-group mb-3 w-50 d-flex flex-column">
             <span class="input-group-text" id="basic-addon1">Usuário</span>
             <input
-                type="text"
+                type="email"
                 class="form-control w-100"
                 placeholder="Digite seu usuário"
                 aria-label="Username"
@@ -60,6 +67,9 @@ const passwordInput = ref("");
                 aria-describedby="basic-addon2"
                 v-model="passwordInput"
             />
+            <span class="spanError p-1" v-if="errorLogin">{{
+                errorLogin
+            }}</span>
             <button
                 :disabled="passwordInput == '' || userInput == ''"
                 type="submit"
@@ -72,6 +82,11 @@ const passwordInput = ref("");
 </template>
 <style>
 form {
-    height: 100vh;
+    height: max-content;
+    margin-top: 100px;
+}
+.spanError {
+    color: red;
+    font-weight: 700;
 }
 </style>
