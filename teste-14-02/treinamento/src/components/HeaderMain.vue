@@ -7,6 +7,9 @@ export function setName(name) {
     localStorage.setItem("name", name);
 }
 export default { setName };
+function logout() {
+    localStorage.removeItem("@merceariaToken");
+}
 </script>
 <template>
     <header
@@ -24,13 +27,14 @@ export default { setName };
                 >
                 <a href="/produtos" @click="setName('Produtos')">Produtos</a>
                 <a href="/login" @click="setName('Login')">Login</a>
+                <button @click="logout" class="btn btn-secondary">Sair</button>
             </nav>
         </div>
     </header>
 </template>
 <style>
 header {
-    height: 70px;
+    height: 80px;
     border-bottom: 2px solid rgba(0, 0, 0, 0.5);
     background-color: #fff;
 }

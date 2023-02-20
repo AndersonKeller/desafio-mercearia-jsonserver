@@ -1,4 +1,7 @@
 import axios from "axios";
+import { useFixaStore, useVariavelStore } from "../stores/counter";
+const useVariaveis = useVariavelStore();
+const useFixa = useFixaStore();
 export const db = axios.create({
     baseURL: "http://localhost:3001",
     timeout: 6000,
@@ -25,10 +28,41 @@ export async function loginDb(data) {
     console.log(res);
     return res;
 }
-export async function getDespesas() {
-    const res = await db.get("/novadespesa");
-    console.log(res.data);
-    return res;
+export async function getDespesasFixas() {
+    const res = await db.get("/despesas");
+    const despesas = res.data[0].marco;
+    const marcoFixas = despesas[0];
+    return marcoFixas;
+}
+export const fixasDes = await getDespesasFixas();
+
+export async function calculoDespesasFixas() {
+    const values = Object.values(fixasDes.fixas);
+    const fixas = values.reduce((acumulador, atual) => {
+        return (acumulador += atual);
+    }, 0);
+    console.log(fixas);
+    return useFixa.atualizaFixas(fixas);
+}
+export async function getDespesasVariaveis() {
+    const res = await db.get("/despesas");
+    const despesas = res.data[0].marco;
+    const marcoVariaveis = despesas[1];
+    return marcoVariaveis;
+}
+
+
+export async function calculoDespesasVariaveis() {
+    const marcoVariaveis = await getDespesasVariaveis();
+    console.log(marcoVariaveis);
+    const values = Object.values(marcoVariaveis.variaveis);
+    console.log(values);
+    const variaveis = values.reduce((acumulador, atual) => {
+        return (acumulador += atual);
+    }, 0);
+    console.log(variaveis);
+    useVariaveis.atualizaVariavel(variaveis);
+    return variaveis;
 }
 export async function postNewDespesa(data) {
     const token = localStorage.getItem("@merceariaToken");

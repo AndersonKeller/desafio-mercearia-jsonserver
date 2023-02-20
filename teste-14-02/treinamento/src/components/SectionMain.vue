@@ -1,36 +1,39 @@
 <script setup>
 import { useFixaStore, useVariavelStore } from "../stores/counter";
-import { getDespesas } from "../database/connection";
-import {
-    calculoUnidadesVendidas,
-    vendaMarco,
-    custoVariavelPorUnidade,
-    custoTotalUnidade,
-    lucroLiquido,
-} from "../controllers/datas";
+import { calculoUnidadesVendidas, vendaMarco } from "../controllers/datas";
 import DespesasForm from "./DespesasForm.vue";
+import {
+    calculoDespesasFixas,
+    calculoDespesasVariaveis,
+} from "../database/connection";
 function getName() {
     const name = localStorage.getItem("name");
     return name;
 }
+
 const name = getName();
 const unidades = calculoUnidadesVendidas();
-const custoVariavelUnidade = custoVariavelPorUnidade();
-const despesaTotalUnidade = custoTotalUnidade();
-const liquido = lucroLiquido();
+
 const despesasFixas = useFixaStore();
 const despesasVariaveis = useVariavelStore();
+
 const valueFixas = despesasFixas.fixas;
+console.log(valueFixas);
 const valueFixasBRL = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
 }).format(valueFixas);
+console.log(despesasVariaveis.variaveis);
 const valueVariavel = despesasVariaveis.variaveis;
+console.log(valueVariavel);
 const valueVariavelBRL = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
 }).format(valueVariavel);
-getDespesas();
+</script>
+<script>
+await calculoDespesasFixas();
+await calculoDespesasVariaveis();
 </script>
 <template>
     <section class="section-main">

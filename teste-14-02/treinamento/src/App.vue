@@ -1,5 +1,13 @@
 <script setup>
 import { RouterView } from "vue-router";
+import { setName } from "./components/HeaderMain.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const validateUser = localStorage.getItem("@merceariaToken");
+if (!validateUser) {
+    setName("login");
+    router.push({ name: "login" });
+}
 </script>
 
 <template>

@@ -49,11 +49,11 @@ const passwordInput = ref("");
         class="d-flex w-50 p-2 align-items-center justify-content-center"
     >
         <div class="input-group mb-3 w-50 d-flex flex-column">
-            <span class="input-group-text" id="basic-addon1">Usuário</span>
+            <span class="input-group-text" id="basic-addon1">Email</span>
             <input
                 type="email"
                 class="form-control w-100"
-                placeholder="Digite seu usuário"
+                placeholder="Digite seu email"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 v-model="userInput"
@@ -88,5 +88,15 @@ form {
 .spanError {
     color: red;
     font-weight: 700;
+}
+.input-group {
+    gap: 16px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 16px;
+}
+.input-group-text {
+    color: rgb(70, 65, 65);
+    border: none;
 }
 </style>
