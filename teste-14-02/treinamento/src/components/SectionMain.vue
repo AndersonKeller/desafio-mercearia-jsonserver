@@ -18,14 +18,11 @@ const despesasFixas = useFixaStore();
 const despesasVariaveis = useVariavelStore();
 
 const valueFixas = despesasFixas.fixas;
-console.log(valueFixas);
 const valueFixasBRL = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
 }).format(valueFixas);
-console.log(despesasVariaveis.variaveis);
 const valueVariavel = despesasVariaveis.variaveis;
-console.log(valueVariavel);
 const valueVariavelBRL = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",

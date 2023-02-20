@@ -25,7 +25,6 @@ export async function registerDb() {
 export async function loginDb(data) {
     //const data = { email: "email@email.com", password: "12345" };
     const res = await db.post("/login", data);
-    console.log(res);
     return res;
 }
 export async function getDespesasFixas() {
@@ -41,7 +40,6 @@ export async function calculoDespesasFixas() {
     const fixas = values.reduce((acumulador, atual) => {
         return (acumulador += atual);
     }, 0);
-    console.log(fixas);
     return useFixa.atualizaFixas(fixas);
 }
 export async function getDespesasVariaveis() {
@@ -51,16 +49,12 @@ export async function getDespesasVariaveis() {
     return marcoVariaveis;
 }
 
-
 export async function calculoDespesasVariaveis() {
     const marcoVariaveis = await getDespesasVariaveis();
-    console.log(marcoVariaveis);
     const values = Object.values(marcoVariaveis.variaveis);
-    console.log(values);
     const variaveis = values.reduce((acumulador, atual) => {
         return (acumulador += atual);
     }, 0);
-    console.log(variaveis);
     useVariaveis.atualizaVariavel(variaveis);
     return variaveis;
 }

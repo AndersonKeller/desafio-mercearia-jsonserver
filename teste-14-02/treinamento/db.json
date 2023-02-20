@@ -1,0 +1,131 @@
+{
+  "users": [
+    {
+      "email": "email@eail.com",
+      "password": "$2a$10$tJe6lxziOIRkfk8C0HppjOa9UHz/iY0E6/drkuSHs/EkiD2yiB4RC",
+      "id": 1
+    },
+    {
+      "email": "email@email.com",
+      "password": "$2a$10$W8vD1YVNreo6YA3fTq04TeyHVKOK0gQYE9Y4CWWFZuyVEDFgumNra",
+      "id": 2
+    }
+  ],
+  "despesas": [
+    {
+      "marco": [
+        {
+          "fixas": {
+            "internet": 99,
+            "funcionario": 2500,
+            "contabilidade": 600,
+            "imposto": 900,
+            "aluguel": 4561
+          }
+        },
+        {
+          "variaveis": {
+            "mantimentos": 4356,
+            "energia": 2879,
+            "agua": 150,
+            "gasolina": 659.54
+          }
+        }
+      ]
+    }
+  ],
+  "novadespesa": [
+    {
+      "tipo": "variavel",
+      "mantimentos": 34,
+      "id": "1676667146394"
+    },
+    {
+      "tipo": "variavel",
+      "mantimentos": 90,
+      "id": "1676667254134"
+    },
+    {
+      "tipo": "fixa",
+      "contabilidade": 900,
+      "id": "1676667263163"
+    },
+    {
+      "tipo": "fixa",
+      "funcionario": 200,
+      "id": "1676911157202"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 100,
+      "nome": "internet",
+      "id": "1676918107424"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 0,
+      "nome": "internet",
+      "id": "1676920046123"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 0,
+      "nome": "internet",
+      "id": "1676920401557"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 0,
+      "nome": "internet",
+      "id": "1676920467222"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 8,
+      "nome": "internet",
+      "id": "1676920475786"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 8,
+      "nome": "internet",
+      "id": "1676920481627"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 80,
+      "nome": "internet",
+      "id": "1676920498288"
+    },
+    {
+      "tipo": "variavel",
+      "valor": 90,
+      "nome": "mantimentos",
+      "id": "1676920543458"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 908,
+      "nome": "mantimentos",
+      "id": "1676920551605"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 908,
+      "nome": "internet",
+      "id": "1676920557413"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 200,
+      "nome": "internet",
+      "id": "1676920605585"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 300,
+      "nome": "internet",
+      "id": "1676920651864"
+    }
+  ]
+}

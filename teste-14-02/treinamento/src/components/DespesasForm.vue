@@ -3,15 +3,47 @@ import { ref } from "vue";
 import {
     calculoDespesasFixas,
     calculoDespesasVariaveis,
+    postNewDespesa,
 } from "../database/connection";
 
 const selectType = ref("");
 const selectVariavel = ref("");
 const selectFixa = ref("");
 const inputValue = ref(0);
+const errorNewDespesa = ref("");
 
+function atualizaErro(value) {
+    errorNewDespesa.value = value;
+    return errorNewDespesa;
+}
 // PEGA OS VALORES DO FORM E ATUALIZA O OBJETO E O STATE COM TOTAL DE DESPESAS
 async function getValuesForm() {
+    if (inputValue.value === 0) {
+        atualizaErro("Valor deve ser maior que zero");
+    }
+    const newDespesa = {};
+    console.log(selectType.value);
+    console.log(inputValue.value);
+    newDespesa["tipo"] = selectType.value;
+    newDespesa["valor"] = inputValue.value;
+    if (selectFixa.value) {
+        newDespesa["nome"] = selectFixa.value;
+        selectFixa.value = "";
+    }
+    if (selectVariavel.value) {
+        newDespesa["nome"] = selectVariavel.value;
+        selectVariavel.value = "";
+    }
+    console.log(newDespesa);
+
+    try {
+        const res = await postNewDespesa(newDespesa);
+        console.log(res.data);
+        inputValue.value = 0;
+        selectType.value = "";
+    } catch (error) {
+        console.log(error);
+    }
 }
 </script>
 <script>
@@ -65,9 +97,33 @@ await calculoDespesasVariaveis();
                 aria-describedby="basic-addon2"
                 v-model="inputValue"
             />
+            <span class="error" v-if="errorNewDespesa">{{
+                errorNewDespesa
+            }}</span>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg mt-1">
+        <button
+            :disabled="
+                inputValue === '' ||
+                selectType === '' ||
+                (selectFixa === '' && selectVariavel === '')
+            "
+            type="submit"
+            class="btn btn-primary btn-lg mt-1"
+        >
             Inserir
         </button>
     </form>
 </template>
+<style>
+.error {
+    color: red;
+    font-weight: 700;
+}
+.input-group {
+    gap: 16px;
+}
+.input-group-text {
+    color: rgb(70, 65, 65);
+    border: none;
+}
+</style>
