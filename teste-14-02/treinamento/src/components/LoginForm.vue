@@ -31,7 +31,6 @@ async function handleSubmit() {
         atualizaError("Email ou senha incorretos");
     }
 }
-console.log(errorLogin.value);
 //email: "email@email.com", password: "12345"
 const useUserStore = defineStore("user", () => {
     const user = ref("");
@@ -49,11 +48,11 @@ const passwordInput = ref("");
         class="d-flex w-50 p-2 align-items-center justify-content-center"
     >
         <div class="input-group mb-3 w-50 d-flex flex-column">
-            <span class="input-group-text" id="basic-addon1">Email</span>
+            <span class="input-group-text" id="basic-addon1">E-mail</span>
             <input
                 type="email"
                 class="form-control w-100"
-                placeholder="Digite seu email"
+                placeholder="Digite seu e-mail"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 v-model="userInput"

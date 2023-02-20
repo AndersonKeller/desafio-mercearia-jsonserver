@@ -6,7 +6,6 @@ import { Icon } from "@iconify/vue";
 export function setName(name) {
     localStorage.setItem("name", name);
 }
-export default { setName };
 function logout() {
     localStorage.removeItem("@merceariaToken");
 }
@@ -27,6 +26,7 @@ function logout() {
                 >
                 <a href="/produtos" @click="setName('Produtos')">Produtos</a>
                 <a href="/login" @click="setName('Login')">Login</a>
+                <a href="/register" @click="setName('register')">Cadastrar</a>
                 <button @click="logout" class="btn btn-secondary">Sair</button>
             </nav>
         </div>

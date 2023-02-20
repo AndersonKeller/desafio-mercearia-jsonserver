@@ -57,7 +57,7 @@ await calculoDespesasVariaveis();
             <select id="tipo" class="form-select w-100" v-model="selectType">
                 <option value="">Escolha o tipo</option>
                 <option value="fixa" selected>Fixa</option>
-                <option value="variavel">Variavel</option>
+                <option value="variavel">Variável</option>
             </select>
             <select
                 v-if="selectType == 'variavel'"
@@ -66,10 +66,10 @@ await calculoDespesasVariaveis();
                 aria-label="Default select example"
                 v-model="selectVariavel"
             >
-                <option value="" selected>Escolha despesa</option>
+                <option value="" selected>Escolha a despesa</option>
                 <option value="mantimentos">Mantimentos</option>
                 <option value="energia">Energia</option>
-                <option value="agua">Agua</option>
+                <option value="agua">Água</option>
                 <option value="gasolina">Gasolina</option>
             </select>
             <select
@@ -82,7 +82,7 @@ await calculoDespesasVariaveis();
                 >
                 <option value="" selected>Escolha despesa</option>
                 <option value="internet">Internet</option>
-                <option value="funcionario">Funcionario</option>
+                <option value="funcionario">Funcionário</option>
                 <option value="contabilidade">Contabilidade</option>
                 <option value="imposto">Imposto</option>
                 <option value="aluguel">Aluguel</option>

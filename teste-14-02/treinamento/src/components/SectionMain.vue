@@ -65,7 +65,7 @@ await calculoDespesasVariaveis();
                 <h3><span class="fs-6">R$</span>{{ vendaMarco }}</h3>
             </div>
             <div class="card p-3 mb-3">
-                <p>Custo variavel por unidade</p>
+                <p>Custo variável por unidade</p>
                 <h3><span class="fs-6">R$</span>{{ custoVariavelUnidade }}</h3>
             </div>
             <div class="card p-3 mb-3">

@@ -17,10 +17,10 @@ export async function connectDb() {
     return res.data;
 }
 
-export async function registerDb() {
-    const data = { email: "email@email.com", password: "12345" };
+export async function registerDb(data) {
+    //const data = { email: "email@email.com", password: "12345" };
     const res = await db.post("/users", data);
-    return res;
+    return res.data;
 }
 export async function loginDb(data) {
     //const data = { email: "email@email.com", password: "12345" };
