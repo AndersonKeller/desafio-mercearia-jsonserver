@@ -34,6 +34,11 @@ const router = createRouter({
             component: () => import("../views/RegistroView.vue"),
         },
         {
+            path: "/painel-controle",
+            name: "painel-controle",
+            component: () => import("../views/PainelControleView.vue"),
+        },
+        {
             path: "/*",
             name: "error",
             component: () => import("../views/ErrorView.vue"),

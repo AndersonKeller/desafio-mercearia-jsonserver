@@ -81,6 +81,8 @@
   "vendas": [
     {
       "marco": 17632.89
+    },{
+        "marcounidades": 881
     }
   ],
   "novadespesa": [

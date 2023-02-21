@@ -45,6 +45,10 @@ export const useUserStore = defineStore("user", () => {
     }
     return { user, atualizaUser };
 });
+export async function defineUser() {
+    const res = useUserStore();
+    return res.user;
+}
 </script>
 <template>
     <form
