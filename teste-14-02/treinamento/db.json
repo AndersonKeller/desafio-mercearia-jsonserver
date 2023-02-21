@@ -8,7 +8,9 @@
     {
       "email": "email@email.com",
       "password": "$2a$10$W8vD1YVNreo6YA3fTq04TeyHVKOK0gQYE9Y4CWWFZuyVEDFgumNra",
-      "id": 2
+      "id": 2,
+      "name": "administrador",
+      "isAdmin": true
     },
     {
       "email": "anderson@email.com",
@@ -45,6 +47,12 @@
       "password": "$2a$10$UHzYH4k5PC7AKkUGQnESsezJvhtxMsxgU/7VvpKt4o9HEgR/dA3Ee",
       "name": "mari",
       "id": 8
+    },
+    {
+      "email": "paulo@email.com",
+      "password": "$2a$10$HjUO3/tM4D/2XtkoMgLCzOKUBa8mTyrxmy77DHgxTYjLKp6jrqSVq",
+      "name": "paulo",
+      "id": 9
     }
   ],
   "despesas": [
@@ -68,6 +76,11 @@
           }
         }
       ]
+    }
+  ],
+  "vendas": [
+    {
+      "marco": 17632.89
     }
   ],
   "novadespesa": [

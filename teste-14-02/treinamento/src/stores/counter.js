@@ -20,7 +20,6 @@ export const useFixaStore = defineStore("fixas", () => {
 export const useVariavelStore = defineStore("variaveis", () => {
     const variaveis = ref(0);
     function atualizaVariavel(value) {
-        console.log(value);
         variaveis.value = Number(value);
     }
     return { variaveis, atualizaVariavel };

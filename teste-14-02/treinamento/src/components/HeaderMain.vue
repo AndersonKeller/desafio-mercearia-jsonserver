@@ -1,13 +1,17 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 // eslint-disable-next-line vue/no-export-in-script-setup
+import { useRouter } from "vue-router";
+const route = useRouter();
+function logout() {
+    localStorage.removeItem("@merceariaToken");
+    localStorage.removeItem("@merceariaUser");
+    route.push({ name: "login" });
+}
 </script>
 <script>
 export function setName(name) {
     localStorage.setItem("name", name);
-}
-function logout() {
-    localStorage.removeItem("@merceariaToken");
 }
 </script>
 <template>

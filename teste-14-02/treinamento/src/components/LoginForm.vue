@@ -13,34 +13,38 @@ function atualizaError(value) {
 
 async function handleSubmit() {
     const setUser = useUserStore();
-    setUser.atualizaUser({
-        user: userInput.value,
-        password: passwordInput.value,
-    });
     const data = { email: userInput.value, password: passwordInput.value };
     try {
         const res = await loginDb(data);
-        console.log(res);
+        setUser.atualizaUser(res.data.user);
         localStorage.setItem("@merceariaToken", res.data.accessToken);
+        localStorage.setItem("@merceariaUser", JSON.stringify(res.data.user));
         setName("Dashboard");
         setTimeout(() => {
             route.push({ name: "home" });
         }, 1000);
     } catch (errorCatch) {
-        console.log(errorCatch.response.data);
+        //console.log(errorCatch.response.data);
         atualizaError("Email ou senha incorretos");
     }
 }
 //email: "email@email.com", password: "12345"
-const useUserStore = defineStore("user", () => {
+
+const userInput = ref("");
+const passwordInput = ref("");
+</script>
+<script>
+export const useUserStore = defineStore("user", () => {
     const user = ref("");
+    const localUser = localStorage.getItem("@merceariaUser");
+    if (localUser) {
+        user.value = localUser;
+    }
     function atualizaUser(value) {
         user.value = value;
     }
     return { user, atualizaUser };
 });
-const userInput = ref("");
-const passwordInput = ref("");
 </script>
 <template>
     <form
