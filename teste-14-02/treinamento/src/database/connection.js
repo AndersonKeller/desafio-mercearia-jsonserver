@@ -1,7 +1,9 @@
 import axios from "axios";
-import { useFixaStore, useVariavelStore } from "../stores/counter";
+import { toRaw } from "vue";
+import { useFixaStore, useVariavelStore, usersStore } from "../stores/counter";
 const useVariaveis = useVariavelStore();
 const useFixa = useFixaStore();
+const users = usersStore();
 export const db = axios.create({
     baseURL: "http://localhost:3001",
     timeout: 6000,
@@ -11,9 +13,11 @@ export async function connectDb() {
     const res = await db.get("/users");
     if (res.status == 200) {
         console.log("server is running");
+        users.atualizaUsers(res.data);
     } else {
         console.log("server not connected");
     }
+    console.log(res.data);
     return res.data;
 }
 
@@ -71,4 +75,17 @@ export async function postNewDespesa(data) {
     });
     console.log(res.data);
     return res;
+}
+export async function softDeleteUser(id) {
+    const token = localStorage.getItem("@merceariaToken");
+    const usersListRaw = users.users[0];
+    const usersList = toRaw(usersListRaw);
+    const findUser = usersList.find((user) => user.id == id.value);
+    const res = await db.delete(`/users/${findUser.id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    window.location.reload();
+    return res.data;
 }

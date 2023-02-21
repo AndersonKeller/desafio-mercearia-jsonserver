@@ -121,9 +121,21 @@ await calculoDespesasVariaveis();
 }
 .input-group {
     gap: 16px;
+    width: 100%;
+    padding: 0 !important;
 }
 .input-group-text {
     color: rgb(70, 65, 65);
     border: none;
+}
+#formDespesas {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+}
+.form-select {
+    width: 100%;
 }
 </style>

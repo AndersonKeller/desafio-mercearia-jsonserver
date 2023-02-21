@@ -68,7 +68,9 @@ const user = await defineUser();
             class="section-header p-3 d-flex align-items-center justify-content-between w-100"
         >
             <h2>Delícias da Vovó</h2>
-            <a v-if="user.isAdmin" href="/painel-controle">Painel de controle</a>
+            <a v-if="user.isAdmin" href="/painel-controle"
+                >Painel de controle</a
+            >
         </div>
         <div
             class="section-body p-3 d-flex align-items-center justify-content-between w-100"
@@ -107,15 +109,13 @@ const user = await defineUser();
             v-if="name == 'Despesas'"
             class="section-content d-flex flex-wrap justify-content-evenly w-100"
         >
-            <div>
-                <div class="card p-3 mb-3 w-100">
-                    <p>Total de despesas fixas</p>
-                    <h3>{{ valueFixasBRL }}</h3>
-                </div>
-                <div class="card p-3 mb-3 w-100">
-                    <p>Total de despesas variaveis</p>
-                    <h3>{{ valueVariavelBRL }}</h3>
-                </div>
+            <div class="card p-3 mb-3">
+                <p>Total de despesas fixas</p>
+                <h3>{{ valueFixasBRL }}</h3>
+            </div>
+            <div class="card p-3 mb-3">
+                <p>Total de despesas variaveis</p>
+                <h3>{{ valueVariavelBRL }}</h3>
             </div>
             <DespesasForm></DespesasForm>
         </div>
@@ -141,7 +141,12 @@ const user = await defineUser();
     background-color: #fff;
 }
 .card {
-    width: 45%;
+    width: 90%;
     height: max-content;
+}
+@media (min-width: 700px) {
+    .card {
+        max-width: 300px;
+    }
 }
 </style>

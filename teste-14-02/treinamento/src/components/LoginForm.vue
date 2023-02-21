@@ -53,9 +53,9 @@ export async function defineUser() {
 <template>
     <form
         @submit.prevent="handleSubmit()"
-        class="d-flex w-50 p-2 align-items-center justify-content-center"
+        class="d-flex p-2 align-items-center justify-content-center"
     >
-        <div class="input-group mb-3 w-50 d-flex flex-column">
+        <div class="input-group mb-3 w-100 d-flex flex-column">
             <span class="input-group-text" id="basic-addon1">E-mail</span>
             <input
                 type="email"
@@ -91,6 +91,8 @@ export async function defineUser() {
 form {
     height: max-content;
     margin-top: 100px;
+    width: 100%;
+    max-width: 400px;
 }
 .spanError {
     color: red;

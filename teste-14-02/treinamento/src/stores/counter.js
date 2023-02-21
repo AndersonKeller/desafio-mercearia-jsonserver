@@ -24,3 +24,10 @@ export const useVariavelStore = defineStore("variaveis", () => {
     }
     return { variaveis, atualizaVariavel };
 });
+export const usersStore = defineStore("users", () => {
+    const users = ref([]);
+    function atualizaUsers(value) {
+        users.value = [...users.value, value];
+    }
+    return { users, atualizaUsers };
+});
