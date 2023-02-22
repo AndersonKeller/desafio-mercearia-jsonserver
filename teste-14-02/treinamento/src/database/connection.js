@@ -89,3 +89,30 @@ export async function softDeleteUser(id) {
     window.location.reload();
     return res.data;
 }
+export async function getNewDespesas() {
+    const res = await db.get("/novadespesa");
+    return res.data;
+}
+export async function getNewFixas() {
+    const allNewDespesas = await getNewDespesas();
+    const allNewFixas = allNewDespesas.filter((desp) => desp.tipo == "fixa");
+    console.log(allNewFixas);
+    return allNewFixas;
+}
+export async function getNewVariaveis() {
+    const allNewDespesas = await db.get("/novadespesa");
+    const allNewVariaveis = allNewDespesas.data.filter(
+        (desp) => desp.tipo == "variavel"
+    );
+    const res = allNewVariaveis.reduce((acumulador, atual) => {
+        return acumulador + atual.valor;
+    }, 0);
+    return res;
+}
+export async function calculoNewFixas() {
+    const fixasList = await getNewFixas();
+    const res = fixasList.reduce((acumulador, atual) => {
+        return (acumulador += atual.valor);
+    }, 0);
+    return res;
+}

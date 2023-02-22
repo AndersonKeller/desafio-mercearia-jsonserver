@@ -1,5 +1,5 @@
 <script setup>
-import { useFixaStore, useVariavelStore } from "../stores/counter";
+import { ref } from "vue";
 import {
     calculoUnidadesVendidas,
     getAllVendasMarco,
@@ -11,27 +11,31 @@ import DespesasForm from "./DespesasForm.vue";
 import {
     calculoDespesasFixas,
     calculoDespesasVariaveis,
+    getNewVariaveis,
+    calculoNewFixas,
 } from "../database/connection";
 import { defineUser } from "../components/LoginForm.vue";
+const variaveis = ref(0);
+const valueVariavelBRL = ref(0);
+const fixas = ref(0);
+const valueFixasBRL = ref(0);
 function getName() {
     const name = localStorage.getItem("name");
     return name;
 }
-
+(async () => {
+    variaveis.value = await getNewVariaveis();
+    valueVariavelBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(variaveis.value);
+    fixas.value = await calculoNewFixas();
+    valueFixasBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(fixas.value);
+})();
 const name = getName();
-const despesasFixas = useFixaStore();
-const despesasVariaveis = useVariavelStore();
-
-const valueFixas = despesasFixas.fixas;
-const valueFixasBRL = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-}).format(valueFixas);
-const valueVariavel = despesasVariaveis.variaveis;
-const valueVariavelBRL = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-}).format(valueVariavel);
 </script>
 <script>
 await calculoDespesasFixas();

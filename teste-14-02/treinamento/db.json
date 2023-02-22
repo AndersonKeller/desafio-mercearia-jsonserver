@@ -47,26 +47,6 @@
   ],
   "novadespesa": [
     {
-      "tipo": "variavel",
-      "mantimentos": 34,
-      "id": "1676667146394"
-    },
-    {
-      "tipo": "variavel",
-      "mantimentos": 90,
-      "id": "1676667254134"
-    },
-    {
-      "tipo": "fixa",
-      "contabilidade": 900,
-      "id": "1676667263163"
-    },
-    {
-      "tipo": "fixa",
-      "funcionario": 200,
-      "id": "1676911157202"
-    },
-    {
       "tipo": "fixa",
       "valor": 100,
       "nome": "internet",
