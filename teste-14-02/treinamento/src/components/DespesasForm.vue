@@ -22,8 +22,6 @@ async function getValuesForm() {
         atualizaErro("Valor deve ser maior que zero");
     }
     const newDespesa = {};
-    console.log(selectType.value);
-    console.log(inputValue.value);
     newDespesa["tipo"] = selectType.value;
     newDespesa["valor"] = inputValue.value;
     if (selectFixa.value) {
@@ -34,7 +32,6 @@ async function getValuesForm() {
         newDespesa["nome"] = selectVariavel.value;
         selectVariavel.value = "";
     }
-    console.log(newDespesa);
 
     try {
         const res = await postNewDespesa(newDespesa);
@@ -103,7 +100,7 @@ await calculoDespesasVariaveis();
         </div>
         <button
             :disabled="
-                inputValue === '' ||
+                inputValue === 0 ||
                 selectType === '' ||
                 (selectFixa === '' && selectVariavel === '')
             "
@@ -130,10 +127,13 @@ await calculoDespesasVariaveis();
 }
 #formDespesas {
     width: 90%;
+    max-width: 400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    padding-bottom: 16px;
+    padding: 16px;
+    border: 1px solid rgba(128, 128, 128, 0.466);
+    border-radius: 8px;
 }
 .form-select {
     width: 100%;

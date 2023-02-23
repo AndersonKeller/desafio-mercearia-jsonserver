@@ -1,9 +1,15 @@
 <script setup>
 import { ref } from "vue";
-import { connectDb, softDeleteUser } from "../database/connection";
+import {
+    connectDb,
+    softDeleteUser,
+    updateUsuario,
+} from "../database/connection";
 const users = ref([]);
 const id = ref(0);
 const open = ref(false);
+const openEdit = ref(false);
+const userName = ref("");
 (async () => {
     users.value = await connectDb();
 })();
@@ -11,9 +17,18 @@ function openDeleteUser(userId) {
     id.value = userId;
     open.value = true;
 }
+function openEditUser(userId, name) {
+    userName.value = name;
+    id.value = userId;
+    openEdit.value = true;
+    console.log(userName.value);
+}
 function removeUsuario() {
     softDeleteUser(id);
     open.value = false;
+}
+function updateUsuarioDefine() {
+    updateUsuario(id.value, userName.value);
 }
 </script>
 <template>
@@ -41,6 +56,12 @@ function removeUsuario() {
                         >
                             <p>{{ user.name }}</p>
                             <button
+                                class="btnEdit"
+                                @click="openEditUser(user.id, user.name)"
+                            >
+                                Editar
+                            </button>
+                            <button
                                 @click="openDeleteUser(user.id)"
                                 v-if="!user.isAdmin"
                             >
@@ -56,18 +77,67 @@ function removeUsuario() {
                 <h3>Remover usuário</h3>
                 <p>Tem certeza que quer remover este usuário?</p>
                 <button @click="open = false" class="btnClose">X</button>
+                <button class="btnVoltar" @click="open = false">Voltar</button>
                 <button @click="removeUsuario(id)">Remover</button>
+            </div>
+        </div>
+        <div v-if="openEdit" class="wrapperDelete">
+            <div class="modalEdit">
+                <h3>Editar usuário</h3>
+                <input class="editInput" type="text" v-model="userName" />
+                <button @click="openEdit = false" class="btnCloseModal">
+                    X
+                </button>
+                <button class="btnEditModal" @click="updateUsuarioDefine">
+                    Editar
+                </button>
             </div>
         </div>
     </div>
 </template>
 <style>
-.wrapperControle {
+.editInput {
+    margin: 16px 0;
+    border: none;
+    background-color: rgba(70, 90, 90, 0.26);
+    padding-left: 12px;
+    height: 45px;
+}
+.btnEdit {
+    background-color: green;
+}
+.btnCloseModal {
     position: absolute;
+    right: 16px;
+    top: 16px;
+    height: 32px;
+}
+.modalEdit {
+    width: 95%;
+    max-width: 400px;
+    height: 250px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid rgb(238, 236, 236);
+    border-radius: 16px;
+    padding: 32px;
+}
+.btnEditModal {
+    background-color: green;
+    border-radius: 16px;
+    height: max-content;
+    padding: 6px;
+    margin-top: 12px;
+    font-weight: 800;
+}
+.wrapperControle {
+    position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
     width: 100%;
+    height: 100vh;
+    overflow-y: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,7 +162,7 @@ function removeUsuario() {
 .wrapperDelete {
     width: 100%;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,6 +190,11 @@ function removeUsuario() {
     padding: 6px;
     cursor: pointer;
     border-radius: 8px;
+}
+.modalDelete .btnVoltar {
+    margin-bottom: 16px;
+    background-color: #08cf08ce;
+    color: #fff;
 }
 .btnClose {
     position: absolute;

@@ -17,7 +17,6 @@ export async function connectDb() {
     } else {
         console.log("server not connected");
     }
-    console.log(res.data);
     return res.data;
 }
 
@@ -44,7 +43,8 @@ export async function calculoDespesasFixas() {
     const fixas = values.reduce((acumulador, atual) => {
         return (acumulador += atual);
     }, 0);
-    return useFixa.atualizaFixas(fixas);
+    useFixa.atualizaFixas(fixas);
+    return fixas;
 }
 export async function getDespesasVariaveis() {
     const res = await db.get("/despesas");
@@ -65,15 +65,13 @@ export async function calculoDespesasVariaveis() {
 export async function postNewDespesa(data) {
     const token = localStorage.getItem("@merceariaToken");
     const idDate = new Date().getTime().toPrecision();
-    console.log(idDate);
     data.id = idDate;
-    console.log(data);
     const res = await db.post("/novadespesa", data, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     });
-    console.log(res.data);
+    window.location.reload();
     return res;
 }
 export async function softDeleteUser(id) {
@@ -96,7 +94,6 @@ export async function getNewDespesas() {
 export async function getNewFixas() {
     const allNewDespesas = await getNewDespesas();
     const allNewFixas = allNewDespesas.filter((desp) => desp.tipo == "fixa");
-    console.log(allNewFixas);
     return allNewFixas;
 }
 export async function getNewVariaveis() {
@@ -115,4 +112,104 @@ export async function calculoNewFixas() {
         return (acumulador += atual.valor);
     }, 0);
     return res;
+}
+export async function getProdutos() {
+    const produtos = await db.get("/produto");
+    const filterActive = produtos.data.filter((prod) => prod.active == true);
+    return filterActive;
+}
+export async function editProduto(id, produto) {
+    const token = localStorage.getItem("@merceariaToken");
+    const newProd = toRaw(produto);
+    console.log(newProd.valor);
+    const res = await db.patch(
+        `/produto/${id}`,
+        { name: newProd.name, valor: newProd.valor },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+    console.log(res);
+    window.location.reload();
+    return res.data;
+}
+export async function createProduto(produto) {
+    const token = localStorage.getItem("@merceariaToken");
+    const newProd = toRaw(produto);
+    const id = new Date().getTime().toPrecision();
+    newProd.id = id;
+    newProd.active = true;
+    console.log(newProd);
+    try {
+        const res = await db.post("/produto", newProd, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        window.location.reload();
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+export async function softDeleteProduto(produto) {
+    const token = localStorage.getItem("@merceariaToken");
+    const id = produto.id;
+    produto.active = false;
+    console.log(produto);
+    const res = await db.patch(`/produto/${id}`, produto, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    window.location.reload();
+    return res.data;
+}
+export async function getAllNewDespesas() {
+    const res = await db.get("/novadespesa");
+    return res.data;
+}
+export async function removeDespesa(id) {
+    const token = localStorage.getItem("@merceariaToken");
+    const res = await db.delete(`/novadespesa/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    window.location.reload();
+    console.log(res);
+}
+export async function updateDespesa(despesaId, valor) {
+    const all = await getAllNewDespesas();
+    const despesa = all.find((desp) => desp.id == despesaId);
+    console.log(despesa);
+    despesa.valor = valor;
+    const token = localStorage.getItem("@merceariaToken");
+    const res = await db.patch(`/novadespesa/${despesa.id}`, despesa, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    console.log(res.data);
+    window.location.reload();
+    return res.data;
+}
+export async function updateUsuario(usuarioId, nome) {
+    const all = await connectDb();
+    const token = localStorage.getItem("@merceariaToken");
+    const user = all.find((user) => user.id == usuarioId);
+    console.log(user);
+    const res = await db.patch(
+        `/users/${usuarioId}`,
+        { name: nome },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+    window.location.reload();
+    return res.data;
 }

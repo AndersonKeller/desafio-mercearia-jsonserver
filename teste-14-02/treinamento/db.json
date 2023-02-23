@@ -10,7 +10,7 @@
     {
       "email": "anderson@email.com",
       "password": "$2a$10$6A/rjm6PIjo7X.CPWoKGaugOTevOCDSAXSfi.qM.iLz0e39DT9nqG",
-      "name": "anderson",
+      "name": "joao",
       "id": 3
     }
   ],
@@ -54,37 +54,19 @@
     },
     {
       "tipo": "fixa",
-      "valor": 0,
-      "nome": "internet",
-      "id": "1676920046123"
-    },
-    {
-      "tipo": "fixa",
-      "valor": 0,
-      "nome": "internet",
-      "id": "1676920401557"
-    },
-    {
-      "tipo": "fixa",
-      "valor": 0,
-      "nome": "internet",
-      "id": "1676920467222"
-    },
-    {
-      "tipo": "fixa",
-      "valor": 8,
+      "valor": 800,
       "nome": "internet",
       "id": "1676920475786"
     },
     {
       "tipo": "fixa",
-      "valor": 8,
+      "valor": 850,
       "nome": "internet",
       "id": "1676920481627"
     },
     {
       "tipo": "fixa",
-      "valor": 80,
+      "valor": 95,
       "nome": "internet",
       "id": "1676920498288"
     },
@@ -117,6 +99,56 @@
       "valor": 300,
       "nome": "internet",
       "id": "1676920651864"
+    },
+    {
+      "tipo": "variavel",
+      "valor": 100,
+      "nome": "mantimentos",
+      "id": "1677067525299"
+    },
+    {
+      "tipo": "variavel",
+      "valor": 400,
+      "nome": "energia",
+      "id": "1677067648463"
+    },
+    {
+      "tipo": "variavel",
+      "valor": 100,
+      "nome": "mantimentos",
+      "id": "1677075198784"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 45,
+      "nome": "internet",
+      "id": "1677075434430"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 100,
+      "nome": "internet",
+      "id": "1677161853563"
+    },
+    {
+      "tipo": "variavel",
+      "valor": 3000,
+      "nome": "mantimentos",
+      "id": "1677161866213"
+    }
+  ],
+  "produto": [
+    {
+      "name": "Bolo normal",
+      "valor": 25.99,
+      "id": 1,
+      "active": true
+    },
+    {
+      "name": "biscoito",
+      "valor": 23,
+      "id": "1677097938050",
+      "active": true
     }
   ]
 }

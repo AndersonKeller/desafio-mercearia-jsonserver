@@ -13,6 +13,7 @@ const rules = auth.rewriter({
     despesas: 664,
     novadespesa: 664,
     vendas: 664,
+    produto: 664,
 });
 
 app.use(cors());
