@@ -5,6 +5,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 const route = useRouter();
 const openHamburguer = ref(false);
+const userAdmin = ref(false);
 const btnHamburguerText = ref("|||");
 function logout() {
     localStorage.removeItem("@merceariaToken");
@@ -21,6 +22,16 @@ function togleHamburguer() {
         btnHamburguerText.value = "|||";
     }
 }
+async function getUserLocal() {
+    const userAdmin = localStorage.getItem("@isAdmin");
+    if (userAdmin) {
+        return true;
+    }
+    return false;
+}
+(async () => {
+    userAdmin.value = await getUserLocal();
+})();
 </script>
 <script>
 export function setName(name) {
@@ -38,8 +49,12 @@ export function setName(name) {
                 class="nav m-auto align-center displayNone justify-content-between"
             >
                 <a href="/" @click="setName('Dashboard')">Dashboard</a>
+                <a href="/vendas" @click="setName('Vendas')">Vendas</a>
                 <a href="/despesas" @click="setName('Despesas')">Despesas</a>
-                <a href="/planejamento" @click="setName('Planejamento')"
+                <a
+                    v-if="userAdmin"
+                    href="/planejamento"
+                    @click="setName('Planejamento')"
                     >Planejamento</a
                 >
                 <a href="/produtos" @click="setName('Produtos')">Produtos</a>

@@ -36,9 +36,9 @@ export async function getDespesasFixas() {
     const marcoFixas = despesas[0];
     return marcoFixas;
 }
-export const fixasDes = await getDespesasFixas();
-
+//export 
 export async function calculoDespesasFixas() {
+    const fixasDes = await getDespesasFixas();
     const values = Object.values(fixasDes.fixas);
     const fixas = values.reduce((acumulador, atual) => {
         return (acumulador += atual);
@@ -212,4 +212,32 @@ export async function updateUsuario(usuarioId, nome) {
     );
     window.location.reload();
     return res.data;
+}
+export async function createNewVenda(venda) {
+    const token = localStorage.getItem("@merceariaToken");
+    const res = await db.post("/novavenda", venda, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    window.location.reload();
+    return res.data;
+}
+export async function getNewVendas() {
+    const res = await db.get("/novavenda");
+    return res.data;
+}
+export async function calculoNewVendas() {
+    const vendas = await getNewVendas();
+    const res = vendas.reduce((acumulador, atual) => {
+        return (acumulador += atual.valor * atual.quantidade);
+    }, 0);
+    return res;
+}
+export async function quantidadesNewVendas() {
+    const vendas = await getNewVendas();
+    const res = vendas.reduce((acumulador, atual) => {
+        return (acumulador += atual.quantidade);
+    }, 0);
+    return res;
 }

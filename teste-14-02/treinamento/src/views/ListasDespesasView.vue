@@ -50,9 +50,7 @@ function updateDespesaDefine() {
                     >
                         <p>{{ despesas.tipo }}</p>
                         <p>{{ despesas.nome }}</p>
-                        <div
-                            class="d-flex align-items-center justify-content-center"
-                        >
+                        <div class="d-flex align-items-center">
                             <p>R$ {{ despesas.valor }}</p>
                             <button
                                 class="btnEdit"
@@ -162,6 +160,7 @@ function updateDespesaDefine() {
     margin: 0 auto;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     border-bottom: 1px solid black;
 }
 .sectionUser p {
@@ -174,6 +173,7 @@ function updateDespesaDefine() {
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    width: 100%;
 }
 .sectionUser div p {
     text-align: right;
@@ -230,5 +230,10 @@ button {
     background-color: rgba(70, 90, 90, 0.26);
     padding-left: 12px;
     height: 45px;
+}
+@media (min-width: 700px) {
+    .sectionUser div {
+        width: max-content;
+    }
 }
 </style>

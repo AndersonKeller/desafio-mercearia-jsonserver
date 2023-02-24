@@ -9,17 +9,20 @@ import {
     calculoUnidadesPlanejamento,
     calculoRestanteEquipamentos,
     calculoNovasDespesasPlanejamento,
+    calculoCustoTotalAbril,
+    calculoCustoVariavelAbril,
+    lucroLiquidoAbril,
 } from "../controllers/datas";
 import DespesasForm from "./DespesasForm.vue";
 import {
-    calculoDespesasFixas,
-    calculoDespesasVariaveis,
     getNewVariaveis,
     calculoNewFixas,
     getProdutos,
     editProduto,
     createProduto,
     softDeleteProduto,
+    calculoNewVendas,
+    quantidadesNewVendas,
 } from "../database/connection";
 const variaveis = ref(0);
 const valueVariavelBRL = ref(0);
@@ -38,17 +41,26 @@ const restantePlanejamento = ref(0);
 const valueRestanteBRL = ref(0);
 const novasFixasPlanejamento = ref(0);
 const novasFixasPlanejamentoBRL = ref(0);
+const mesVigente = ref("marco");
+const vendasAbril = ref(0);
+const vendaasAbrilBRL = ref(0);
+const quantidadeAbril = ref(0);
+const custoTotalAbril = ref(0);
+const custoTotalAbrilBRL = ref(0);
+const custoVariavelAbril = ref(0);
+const custoVariavelAbrilBRL = ref(0);
+const liquidoAbril = ref(0);
+const liquidoAbrilBRL = ref(0);
 function getName() {
     const name = localStorage.getItem("name");
     return name;
 }
 async function getUserLocal() {
-    const res = localStorage.getItem("@merceariaUser");
-    if (res.isAdmin == true) {
-        userAdmin.value = true;
-        console.log(userAdmin);
+    const userAdmin = localStorage.getItem("@isAdmin");
+    if (userAdmin) {
+        return true;
     }
-    return res;
+    return false;
 }
 (async () => {
     variaveis.value = await getNewVariaveis();
@@ -74,6 +86,27 @@ async function getUserLocal() {
         style: "currency",
         currency: "BRL",
     }).format(novasFixasPlanejamento.value);
+    vendasAbril.value = await calculoNewVendas();
+    vendaasAbrilBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(vendasAbril.value);
+    quantidadeAbril.value = await quantidadesNewVendas();
+    custoTotalAbril.value = await calculoCustoTotalAbril();
+    custoTotalAbrilBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(custoTotalAbril.value);
+    custoVariavelAbril.value = await calculoCustoVariavelAbril();
+    custoVariavelAbrilBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(custoVariavelAbril.value);
+    liquidoAbril.value = await lucroLiquidoAbril();
+    liquidoAbrilBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(liquidoAbril.value);
 })();
 const name = getName();
 
@@ -108,31 +141,35 @@ function showAdicionarProduto() {
 }
 </script>
 <script>
-await calculoDespesasFixas();
-await calculoDespesasVariaveis();
-const variavelUnidade = await custoVariavelUnidade();
-const variavelUnidadeBRL = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-}).format(variavelUnidade);
-const vendaMarco = await getAllVendasMarco();
-const unidades = await calculoUnidadesVendidas();
-const custoFixo = await custoFixoUnidade();
-const despesaTotal = Number(custoFixo) + Number(variavelUnidade);
-
-const despesaTotalBRL = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-}).format(despesaTotal);
-const vendaMarcoBRL = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-}).format(vendaMarco);
-const liquido = await calculaLucroLiquido();
-const liquidoBRL = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-}).format(liquido);
+const variavelUnidadeBRL = ref(0);
+const despesaTotalBRL = ref(0);
+const unidades = ref(0);
+const vendaMarcoBRL = ref(0);
+const liquidoBRL = ref(0);
+(async () => {
+    const variavelUnidade = await custoVariavelUnidade();
+    variavelUnidadeBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(variavelUnidade);
+    despesaTotalBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(despesaTotal);
+    const despesaTotal = Number(custoFixo) + Number(variavelUnidade);
+    const vendaMarco = await getAllVendasMarco();
+    unidades.value = await calculoUnidadesVendidas();
+    const custoFixo = await custoFixoUnidade();
+    vendaMarcoBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(vendaMarco);
+    const liquido = await calculaLucroLiquido();
+    liquidoBRL.value = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(liquido);
+})();
 </script>
 <template>
     <section class="section-main">
@@ -149,8 +186,14 @@ const liquidoBRL = new Intl.NumberFormat("pt-BR", {
             class="section-body p-3 d-flex align-items-center justify-content-between w-100"
         >
             <h4>{{ name }}</h4>
-            <select v-if="name == 'Dashboard'" name="mes" id="mes">
-                <option value="março">Março</option>
+            <select
+                v-model="mesVigente"
+                v-if="name == 'Dashboard'"
+                name="mes"
+                id="mes"
+            >
+                <option value="marco">Março</option>
+                <option value="abril">Abril</option>
             </select>
         </div>
         <div
@@ -159,23 +202,30 @@ const liquidoBRL = new Intl.NumberFormat("pt-BR", {
         >
             <div v-if="userAdmin" class="card p-3 mb-3">
                 <p>Lucro Líquido</p>
-                <h3>{{ liquidoBRL }}</h3>
+                <h3 v-if="mesVigente == 'marco'">{{ liquidoBRL }}</h3>
+                <h3 v-if="mesVigente == 'abril'">{{ liquidoAbrilBRL }}</h3>
             </div>
             <div class="card p-3 mb-3">
                 <p>Unidades vendidas</p>
-                <h3>{{ unidades }}</h3>
+                <h3 v-if="mesVigente == 'marco'">{{ unidades }}</h3>
+                <h3 v-if="mesVigente == 'abril'">{{ quantidadeAbril }}</h3>
             </div>
             <div class="card p-3 mb-3">
                 <p>Total de vendas</p>
-                <h3>{{ vendaMarcoBRL }}</h3>
+                <h3 v-if="mesVigente == 'marco'">{{ vendaMarcoBRL }}</h3>
+                <h3 v-if="mesVigente == 'abril'">{{ vendaasAbrilBRL }}</h3>
             </div>
             <div v-if="userAdmin" class="card p-3 mb-3">
                 <p>Custo variável por unidade</p>
-                <h3>{{ variavelUnidadeBRL }}</h3>
+                <h3 v-if="mesVigente == 'marco'">{{ variavelUnidadeBRL }}</h3>
+                <h3 v-if="mesVigente == 'abril'">
+                    {{ custoVariavelAbrilBRL }}
+                </h3>
             </div>
             <div v-if="userAdmin" class="card p-3 mb-3">
                 <p>Custo total por unidade</p>
-                <h3>{{ despesaTotalBRL }}</h3>
+                <h3 v-if="mesVigente == 'marco'">{{ despesaTotalBRL }}</h3>
+                <h3 v-if="mesVigente == 'abril'">{{ custoTotalAbrilBRL }}</h3>
             </div>
         </div>
         <div
@@ -277,6 +327,13 @@ const liquidoBRL = new Intl.NumberFormat("pt-BR", {
     </section>
 </template>
 <style>
+#mes {
+    border-radius: 16px;
+    padding: 6px 12px;
+    background-color: #428a97;
+    color: #fff;
+    font-weight: 800;
+}
 .divBtns {
     display: flex;
     width: 100%;
@@ -290,7 +347,7 @@ const liquidoBRL = new Intl.NumberFormat("pt-BR", {
 }
 .btnAdicionarproduto {
     position: absolute;
-    top: -64px;
+    top: -44px;
     right: 16px;
     border: none;
     border-radius: 16px;
@@ -312,7 +369,8 @@ const liquidoBRL = new Intl.NumberFormat("pt-BR", {
 }
 .divPlanejamento {
     margin-left: 32px;
-    width: 45%;
+    width: 100%;
+    max-width: 250px;
 }
 .divPlanejamento p {
     color: rgb(62, 62, 233);
@@ -333,8 +391,9 @@ const liquidoBRL = new Intl.NumberFormat("pt-BR", {
     justify-content: space-between;
 }
 .rigth {
-    width: 45%;
-    margin-left: 0;
+    width: 90%;
+    margin: 10px auto;
+    max-width: 250px;
 }
 .btnClose {
     position: absolute;
@@ -377,6 +436,11 @@ const liquidoBRL = new Intl.NumberFormat("pt-BR", {
     background-color: #7900ac;
     color: #fff;
     border-radius: 16px 16px 0 0;
+}
+.section-header a {
+    font-weight: 500;
+    color: #fff;
+    text-decoration: underline;
 }
 .section-body {
     height: 100px;

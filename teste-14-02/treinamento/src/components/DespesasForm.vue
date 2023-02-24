@@ -1,10 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import {
-    calculoDespesasFixas,
-    calculoDespesasVariaveis,
-    postNewDespesa,
-} from "../database/connection";
+import { postNewDespesa } from "../database/connection";
 
 const selectType = ref("");
 const selectVariavel = ref("");
@@ -42,10 +38,6 @@ async function getValuesForm() {
         console.log(error);
     }
 }
-</script>
-<script>
-await calculoDespesasFixas();
-await calculoDespesasVariaveis();
 </script>
 <template>
     <form id="formDespesas" @submit.prevent="getValuesForm()">

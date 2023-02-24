@@ -19,12 +19,18 @@ async function handleSubmit() {
         setUser.atualizaUser(res.data.user);
         localStorage.setItem("@merceariaToken", res.data.accessToken);
         localStorage.setItem("@merceariaUser", JSON.stringify(res.data.user));
+        if (res.data.user.isAdmin) {
+            localStorage.setItem("@isAdmin", true);
+        }
+        if (!res.data.user.isAdmin) {
+            localStorage.removeItem("@isAdmin");
+        }
         setName("Dashboard");
         setTimeout(() => {
             route.push({ name: "home" });
         }, 1000);
     } catch (errorCatch) {
-        //console.log(errorCatch.response.data);
+        console.log(errorCatch.response.data);
         atualizaError("Email ou senha incorretos");
     }
 }

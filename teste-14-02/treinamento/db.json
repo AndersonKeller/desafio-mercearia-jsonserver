@@ -9,8 +9,8 @@
     },
     {
       "email": "anderson@email.com",
-      "password": "$2a$10$6A/rjm6PIjo7X.CPWoKGaugOTevOCDSAXSfi.qM.iLz0e39DT9nqG",
-      "name": "joao",
+      "password": "$2a$10$upUCbU4Oen7CVkvdDhP0POaezVzzuVYinxYpi.jvzTHGX/XsZY6Y.",
+      "name": "anderson",
       "id": 3
     }
   ],
@@ -45,6 +45,56 @@
       "marcounidades": 881
     }
   ],
+  "novavenda": [
+    {
+      "name": "Bolo normal",
+      "valor": 25.99,
+      "quantidade": 2,
+      "id": 9
+    },
+    {
+      "name": "Bolo normal",
+      "valor": 25.99,
+      "quantidade": 2,
+      "id": 10
+    },
+    {
+      "name": "Bolo normal",
+      "valor": 25.99,
+      "quantidade": 1,
+      "id": 11
+    },
+    {
+      "name": "biscoito",
+      "valor": 23,
+      "quantidade": 10,
+      "id": 12
+    },
+    {
+      "name": "Bolo normal",
+      "valor": 25.99,
+      "quantidade": 5,
+      "id": 13
+    },
+    {
+      "name": "biscoito",
+      "valor": 23,
+      "quantidade": 10,
+      "id": 14
+    },
+    {
+      "name": "biscoito",
+      "valor": 23,
+      "quantidade": 6,
+      "id": 15
+    },
+    {
+      "name": "Bolo normal",
+      "valor": 25.99,
+      "quantidade": 1,
+      "id": 16
+    }
+  ],
   "novadespesa": [
     {
       "tipo": "fixa",
@@ -57,12 +107,6 @@
       "valor": 800,
       "nome": "internet",
       "id": "1676920475786"
-    },
-    {
-      "tipo": "fixa",
-      "valor": 850,
-      "nome": "internet",
-      "id": "1676920481627"
     },
     {
       "tipo": "fixa",
@@ -120,12 +164,6 @@
     },
     {
       "tipo": "fixa",
-      "valor": 45,
-      "nome": "internet",
-      "id": "1677075434430"
-    },
-    {
-      "tipo": "fixa",
       "valor": 100,
       "nome": "internet",
       "id": "1677161853563"
@@ -135,6 +173,12 @@
       "valor": 3000,
       "nome": "mantimentos",
       "id": "1677161866213"
+    },
+    {
+      "tipo": "fixa",
+      "valor": 900,
+      "nome": "funcionario",
+      "id": "1677245408427"
     }
   ],
   "produto": [
@@ -142,12 +186,30 @@
       "name": "Bolo normal",
       "valor": 25.99,
       "id": 1,
-      "active": true
+      "active": false
     },
     {
       "name": "biscoito",
       "valor": 23,
       "id": "1677097938050",
+      "active": false
+    },
+    {
+      "name": "bolacha",
+      "valor": 30,
+      "id": "1677185840188",
+      "active": false
+    },
+    {
+      "name": "banana",
+      "valor": 5,
+      "id": "1677244923670",
+      "active": false
+    },
+    {
+      "name": "Bolo normal",
+      "valor": 25.89,
+      "id": "1677245801357",
       "active": true
     }
   ]
